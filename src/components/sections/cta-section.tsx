@@ -88,6 +88,7 @@ export function CTASection() {
             fill
             className="object-cover"
             sizes="50vw"
+            loading="eager"
           />
         </ParallaxImage>
       </div>
