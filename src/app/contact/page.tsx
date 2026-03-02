@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -202,19 +201,13 @@ export default function ContactPage() {
   return (
     <section className="relative bg-cream-50 min-h-screen flex items-center justify-center py-28 px-6 overflow-hidden">
       {/* Step and Repeat Logo Backdrop */}
-      <div className="absolute inset-0 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-8 p-8 opacity-[0.04]" aria-hidden="true">
-        {Array.from({ length: 64 }).map((_, i) => (
-          <div key={i} className="flex items-center justify-center">
-            <Image
-              src="/images/logo.png"
-              alt=""
-              width={80}
-              height={27}
-              className="w-full h-auto"
-            />
-          </div>
-        ))}
-      </div>
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden="true"
+        style={{
+          backgroundImage: "url(/images/logo.png)",
+          backgroundSize: "100px auto",
+          backgroundRepeat: "repeat",
+        }}
+      />
 
       <div className="relative z-10 w-full max-w-xl">
         {/* Tab Switcher */}

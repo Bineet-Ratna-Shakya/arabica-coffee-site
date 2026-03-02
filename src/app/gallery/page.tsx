@@ -121,21 +121,21 @@ export default function GalleryPage() {
       </div>
 
       {/* ── Café grid ── */}
-      <div className="bg-cream-50 grid grid-cols-2 md:grid-cols-4 gap-1 px-1">
+      <div className="bg-cream-50 grid grid-cols-1 md:grid-cols-4 gap-1 px-1">
         {/* Row 1: 2 landscape */}
-        <Tile src={cafe[1].src} alt={cafe[1].alt} aspect="4/3" className="col-span-2" onClick={() => openImage(cafe[1])}>
+        <Tile src={cafe[1].src} alt={cafe[1].alt} aspect="4/3" className="md:col-span-2" onClick={() => openImage(cafe[1])}>
           <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 pointer-events-none">
             <p className="font-heading text-base md:text-lg text-white/60">The counter.</p>
           </div>
         </Tile>
-        <Tile src={cafe[2].src} alt={cafe[2].alt} aspect="4/3" className="col-span-2" onClick={() => openImage(cafe[2])}>
+        <Tile src={cafe[2].src} alt={cafe[2].alt} aspect="4/3" className="md:col-span-2" onClick={() => openImage(cafe[2])}>
           <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 pointer-events-none text-right">
             <p className="font-heading text-base md:text-lg text-white/60">The lounge.</p>
           </div>
         </Tile>
 
-        {/* Row 2: 1 tall portrait + 2 squares stacked */}
-        <Tile src={cafe[3].src} alt={cafe[3].alt} aspect="2/3" className="col-span-2 md:col-span-2 md:row-span-2" onClick={() => openImage(cafe[3])}>
+        {/* Row 2: on desktop 1 tall portrait + 4 squares. On mobile: stacked */}
+        <Tile src={cafe[3].src} alt={cafe[3].alt} aspect="3/4" className="md:col-span-2 md:row-span-2" onClick={() => openImage(cafe[3])}>
           <div className="absolute top-6 left-6 md:top-10 md:left-10 pointer-events-none">
             <p className="text-white/30 text-[10px] uppercase tracking-[0.3em] mb-1">Slow pour</p>
             <p className="font-heading text-xl md:text-3xl text-white/70 leading-tight">
@@ -143,13 +143,13 @@ export default function GalleryPage() {
             </p>
           </div>
         </Tile>
-        <Tile src={cafe[4].src} alt={cafe[4].alt} aspect="4/3" className="col-span-1" onClick={() => openImage(cafe[4])} />
-        <Tile src={cafe[5].src} alt={cafe[5].alt} aspect="4/3" className="col-span-1" onClick={() => openImage(cafe[5])} />
-        <Tile src={cafe[6].src} alt={cafe[6].alt} aspect="4/3" className="col-span-1" onClick={() => openImage(cafe[6])} />
-        <Tile src={cafe[7].src} alt={cafe[7].alt} aspect="4/3" className="col-span-1" onClick={() => openImage(cafe[7])} />
+        <Tile src={cafe[4].src} alt={cafe[4].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[4])} />
+        <Tile src={cafe[5].src} alt={cafe[5].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[5])} />
+        <Tile src={cafe[6].src} alt={cafe[6].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[6])} />
+        <Tile src={cafe[7].src} alt={cafe[7].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[7])} />
 
         {/* Row 3: full-bleed quote */}
-        <Tile src={cafe[8].src} alt={cafe[8].alt} aspect="21/9" className="col-span-2 md:col-span-4" onClick={() => openImage(cafe[8])}>
+        <Tile src={cafe[8].src} alt={cafe[8].alt} aspect="16/9" className="md:col-span-4" onClick={() => openImage(cafe[8])}>
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <p className="font-heading text-xl md:text-3xl lg:text-4xl text-white/60 text-center leading-snug italic">
               &ldquo;Light, warmth & good coffee.&rdquo;
@@ -157,14 +157,14 @@ export default function GalleryPage() {
           </div>
         </Tile>
 
-        {/* Row 4: 3 images */}
-        <Tile src={cafe[9].src} alt={cafe[9].alt} aspect="1/1" className="col-span-1" onClick={() => openImage(cafe[9])} />
-        <Tile src={cafe[10].src} alt={cafe[10].alt} aspect="1/1" className="col-span-2" onClick={() => openImage(cafe[10])}>
+        {/* Row 4: images */}
+        <Tile src={cafe[9].src} alt={cafe[9].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[9])} />
+        <Tile src={cafe[10].src} alt={cafe[10].alt} aspect="4/3" className="md:col-span-2" onClick={() => openImage(cafe[10])}>
           <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 pointer-events-none">
             <p className="font-heading text-base md:text-lg text-white/50">After hours.</p>
           </div>
         </Tile>
-        <Tile src={cafe[11].src} alt={cafe[11].alt} aspect="1/1" className="col-span-1" onClick={() => openImage(cafe[11])} />
+        <Tile src={cafe[11].src} alt={cafe[11].alt} aspect="4/3" className="md:col-span-1" onClick={() => openImage(cafe[11])} />
       </div>
 
       {/* ── Academy label ── */}
@@ -177,8 +177,8 @@ export default function GalleryPage() {
       </div>
 
       {/* ── Academy grid ── */}
-      <div className="bg-cream-50 grid grid-cols-3 gap-1 px-1">
-        <Tile src={academy[0].src} alt={academy[0].alt} aspect="16/9" className="col-span-3" onClick={() => openImage(academy[0])}>
+      <div className="bg-cream-50 grid grid-cols-1 md:grid-cols-3 gap-1 px-1">
+        <Tile src={academy[0].src} alt={academy[0].alt} aspect="16/9" className="md:col-span-3" onClick={() => openImage(academy[0])}>
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 pointer-events-none">
             <p className="text-white/30 text-[10px] uppercase tracking-[0.3em] mb-1">SCA Certified</p>
             <p className="font-heading text-lg md:text-2xl text-white/60">Where baristas are made.</p>

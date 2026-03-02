@@ -58,42 +58,26 @@ export default function TestimonialsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-cream-50">
-        <div className="grid lg:grid-cols-2 min-h-[50vh]">
-          {/* Left - Image */}
-          <div className="relative min-h-[40vh] lg:min-h-full">
-            <Image
-              src="/images/gallery/shop-counter-1.webp"
-              alt="Arabica coffee counter"
-              fill
-              className="object-cover"
-              sizes="50vw"
-            />
-          </div>
-
-          {/* Right - Content */}
-          <div className="flex flex-col justify-center px-8 lg:px-16 py-16">
-            <div className="max-w-lg">
-              <p className="text-accent-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
-                Join Us
-              </p>
-              <h2 className="font-heading text-4xl md:text-5xl text-coffee-900 leading-[0.95] mb-6">
-                Write Your
-                <br />
-                <span className="text-accent-500">Own Story</span>
-              </h2>
-              <p className="text-coffee-600 text-lg leading-relaxed mb-8">
-                Every regular started as a first-time visitor. Come experience what everyone&apos;s talking about.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild>
-                  <Link href="/menu">View Menu</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link href="/contact">Visit Us</Link>
-                </Button>
-              </div>
-            </div>
+      <section className="bg-cream-50 py-20 md:py-28">
+        <div className="max-w-2xl mx-auto px-8 text-center">
+          <p className="text-accent-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
+            Join Us
+          </p>
+          <h2 className="font-heading text-4xl md:text-5xl text-coffee-900 leading-[0.95] mb-6">
+            Write Your
+            <br />
+            <span className="text-accent-500">Own Story</span>
+          </h2>
+          <p className="text-coffee-600 text-lg leading-relaxed mb-8">
+            Every regular started as a first-time visitor. Come experience what everyone&apos;s talking about.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button size="lg" asChild>
+              <Link href="/menu">View Menu</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/contact">Visit Us</Link>
+            </Button>
           </div>
         </div>
       </section>
