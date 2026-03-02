@@ -3,7 +3,6 @@ import Link from "next/link";
 import { MapPin, Clock, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/constants";
-import { ParallaxImage } from "@/components/effects/parallax";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/animated-section";
 
 export function CTASection() {
@@ -80,17 +79,17 @@ export function CTASection() {
           </div>
         </div>
 
-        {/* Right side - Image with parallax */}
-        <ParallaxImage speed={0.2} className="min-h-[50vh] lg:min-h-full">
+        {/* Right side - Image */}
+        <div className="relative min-h-[50vh]">
           <Image
             src="/images/purplehouse.png"
             alt="The Purple House — Arabica's home in Bagbazar, Kathmandu"
             fill
             className="object-cover"
-            sizes="50vw"
-            loading="eager"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
           />
-        </ParallaxImage>
+        </div>
       </div>
     </section>
   );
