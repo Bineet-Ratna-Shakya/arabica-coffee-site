@@ -82,7 +82,7 @@ export function CTASection() {
         {/* Right side - Image */}
         <div className="relative min-h-[50vh]">
           <Image
-            src="/images/purplehouse.png"
+            src="/images/purplehouse.jpg"
             alt="The Purple House — Arabica's home in Bagbazar, Kathmandu"
             fill
             className="object-cover"

@@ -657,7 +657,7 @@ export const galleryImages: GalleryImage[] = [
   // ── The Building ──
   {
     id: "17",
-    src: "/images/purplehouse.png",
+    src: "/images/purplehouse.jpg",
     alt: "Purple House, Bagbazar — home of Arabica",
     width: 1400,
     height: 933,

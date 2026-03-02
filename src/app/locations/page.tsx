@@ -48,7 +48,7 @@ export default function LocationsPage() {
       {/* Hero */}
       <section className="relative bg-coffee-900 overflow-hidden">
         <Image
-          src="/images/purplehouse.png"
+          src="/images/purplehouse.jpg"
           alt="Purple House — Arabica Bagbazar"
           fill
           className="object-cover opacity-20"
