@@ -1,154 +1,187 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
-import { useState } from "react";
-import { motion } from "motion/react";
-import { SectionContainer } from "@/components/shared/section-container";
-import { Heading } from "@/components/shared/heading";
+import { getMenuItems } from "@/lib/menu-service";
+import { siteConfig, MENU_CATEGORIES, categoryMeta } from "@/lib/constants";
+import type { MenuItem, MenuCategory } from "@/types";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/animated-section";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { menuItems } from "@/lib/data";
-import type { MenuCategory } from "@/types";
+import { ParallaxImage } from "@/components/effects/parallax";
 
-const categories: { value: MenuCategory; label: string }[] = [
-  { value: "coffee", label: "Coffee" },
-  { value: "drinks", label: "Drinks" },
-  { value: "pastries", label: "Pastries" },
-  { value: "specialties", label: "Specialties" },
-];
+export const revalidate = 60;
 
-const categoryImages: Record<MenuCategory, string> = {
-  coffee: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400",
-  drinks: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400",
-  pastries: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400",
-  specialties: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400",
+export const metadata: Metadata = {
+  title: "Menu",
+  description:
+    "Explore our curated selection of specialty coffees, artisan drinks, freshly baked pastries, and signature creations at Arabica Beans & Academy.",
+  keywords: [
+    "coffee menu",
+    "specialty coffee",
+    "espresso drinks",
+    "matcha latte",
+    "smoothies",
+    "fresh juice",
+    "bakery",
+    "healthy breakfast",
+    "ice cream",
+    "Kathmandu cafe menu",
+  ],
+  openGraph: {
+    title: `Menu | ${siteConfig.name}`,
+    description:
+      "Explore our curated selection of specialty coffees, artisan drinks, and freshly baked pastries.",
+    url: `${siteConfig.url}/menu`,
+  },
 };
 
-export default function MenuPage() {
-  const [activeCategory, setActiveCategory] = useState<MenuCategory>("coffee");
+export default async function MenuPage() {
+  const menuItems = await getMenuItems();
 
-  const filteredItems = menuItems.filter(
-    (item) => item.category === activeCategory
+  const grouped = MENU_CATEGORIES.reduce(
+    (acc, cat) => {
+      acc[cat] = menuItems.filter((item) => item.category === cat);
+      return acc;
+    },
+    {} as Record<MenuCategory, MenuItem[]>
   );
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920"
-            alt=""
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <SectionContainer className="relative text-center">
-          <AnimatedSection>
-            <Heading as="h1" size="hero" className="text-cream-50 mb-6">
+      {/* Hero heading — fades up on load */}
+      <section className="bg-cream-50 pt-12 sm:pt-16 lg:pt-28 pb-8 sm:pb-12 px-5 sm:px-8 lg:px-16">
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection delay={0.1} direction="up">
+            <p className="text-accent-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
               Our Menu
-            </Heading>
-            <p className="text-xl text-cream-200 max-w-3xl mx-auto">
-              From expertly crafted espresso to freshly baked pastries, explore
-              our selection of handmade favorites.
             </p>
           </AnimatedSection>
-        </SectionContainer>
+          <AnimatedSection delay={0.25} direction="up" duration={0.7}>
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-coffee-900 leading-[0.95]">
+              Craft Coffee
+              <br />
+              & <span className="text-accent-500">More</span>
+            </h1>
+          </AnimatedSection>
+        </div>
       </section>
 
-      {/* Menu Section */}
-      <section className="py-24">
-        <SectionContainer>
-          <Tabs
-            defaultValue="coffee"
-            value={activeCategory}
-            onValueChange={(value) => setActiveCategory(value as MenuCategory)}
-            className="w-full"
+      {/* Category grid — cards stagger in one by one */}
+      <section className="bg-cream-50 px-5 sm:px-8 lg:px-16 pb-12 sm:pb-16">
+        <div className="max-w-6xl mx-auto">
+          <StaggerContainer
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"
+            staggerDelay={0.07}
+            delayChildren={0.3}
           >
-            <AnimatedSection className="flex justify-center mb-12">
-              <TabsList className="flex-wrap h-auto gap-2 p-2">
-                {categories.map((category) => (
-                  <TabsTrigger
-                    key={category.value}
-                    value={category.value}
-                    className="px-6 py-3"
-                  >
-                    {category.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </AnimatedSection>
-
-            {categories.map((category) => (
-              <TabsContent key={category.value} value={category.value}>
-                <motion.div
-                  key={category.value}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+            {MENU_CATEGORIES.map((cat) => (
+              <StaggerItem key={cat}>
+                <a
+                  href={`#${cat}`}
+                  className="group relative overflow-hidden block"
                 >
-                  <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {menuItems
-                      .filter((item) => item.category === category.value)
-                      .map((item) => (
-                        <StaggerItem key={item.id}>
-                          <Card className="group h-full overflow-hidden hover:shadow-card transition-all duration-300">
-                            <div className="relative h-48 overflow-hidden">
-                              <Image
-                                src={categoryImages[item.category]}
-                                alt={item.name}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                sizes="(max-width: 768px) 100vw, 33vw"
-                              />
-                              <div className="absolute top-3 left-3 flex gap-2">
-                                {item.isNew && (
-                                  <Badge variant="new">New</Badge>
-                                )}
-                                {item.isPopular && (
-                                  <Badge variant="popular">Popular</Badge>
-                                )}
-                              </div>
-                            </div>
-                            <CardContent className="p-5">
-                              <h3 className="font-heading text-xl font-semibold text-coffee-800 mb-2">
-                                {item.name}
-                              </h3>
-                              <p className="text-coffee-500 text-sm leading-relaxed">
-                                {item.description}
-                              </p>
-                            </CardContent>
-                            <CardFooter className="p-5 pt-0">
-                              <span className="text-2xl font-bold text-coffee-700">
-                                ${item.price.toFixed(2)}
-                              </span>
-                            </CardFooter>
-                          </Card>
-                        </StaggerItem>
-                      ))}
-                  </StaggerContainer>
-                </motion.div>
-              </TabsContent>
+                  <ParallaxImage speed={0.15} className="h-44 sm:h-56 lg:h-64">
+                    <Image
+                      src={categoryMeta[cat].image}
+                      alt={categoryMeta[cat].label}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  </ParallaxImage>
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-coffee-900/40 group-hover:bg-coffee-900/30 transition-colors pointer-events-none" />
+                  {/* Label */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 pointer-events-none">
+                    <span className="font-heading text-sm sm:text-base uppercase tracking-wider text-white">
+                      {categoryMeta[cat].label}
+                    </span>
+                    <span className="block text-[10px] sm:text-xs text-white/70 mt-0.5">
+                      {grouped[cat].length} items
+                    </span>
+                  </div>
+                  {/* Badge for popular items */}
+                  {grouped[cat].some((i) => i.isPopular) && (
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-accent-500 px-2 py-0.5 text-[9px] sm:text-[10px] uppercase tracking-wider text-white font-bold pointer-events-none">
+                      Popular
+                    </div>
+                  )}
+                </a>
+              </StaggerItem>
             ))}
-          </Tabs>
-        </SectionContainer>
+          </StaggerContainer>
+        </div>
       </section>
 
-      {/* Note Section */}
-      <section className="py-16 bg-cream-100">
-        <SectionContainer size="narrow" className="text-center">
-          <AnimatedSection>
-            <p className="text-coffee-600">
-              <strong className="text-coffee-800">Dietary Options:</strong> We
-              offer oat, almond, soy, and coconut milk alternatives at no extra
-              charge. Please inform us of any allergies when ordering.
-            </p>
+      {/* Full menu — each category reveals on scroll, items stagger in */}
+      {MENU_CATEGORIES.map((cat) => (
+        <section
+          key={cat}
+          id={cat}
+          className="border-t-4 border-coffee-900 bg-cream-50"
+        >
+          {/* Category header — slides in */}
+          <AnimatedSection direction="up" duration={0.6}>
+            <div className="px-5 sm:px-8 lg:px-16 py-8 sm:py-10 bg-cream-100">
+              <div className="max-w-6xl mx-auto flex items-baseline justify-between">
+                <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-coffee-900">
+                  {categoryMeta[cat].label}
+                </h2>
+                <span className="text-xs sm:text-sm text-coffee-500 uppercase tracking-wide">
+                  {grouped[cat].length} items
+                </span>
+              </div>
+            </div>
           </AnimatedSection>
-        </SectionContainer>
-      </section>
+
+          {/* Items list — stagger in */}
+          <StaggerContainer
+            className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-16"
+            staggerDelay={0.06}
+          >
+            {grouped[cat].map((item, idx) => (
+              <StaggerItem key={item.id}>
+                <div className="flex items-start gap-4 sm:gap-8 py-6 sm:py-8 border-b border-coffee-200 last:border-b-0">
+                  {/* Number */}
+                  <span className="font-heading text-xl sm:text-2xl text-coffee-300 shrink-0 w-8 sm:w-10 pt-0.5">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="font-heading text-base sm:text-lg text-coffee-900 uppercase">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-coffee-500 mt-1 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                      {(item.isNew || item.isPopular) && (
+                        <span className="hidden sm:inline-block bg-accent-500 text-white text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 shrink-0">
+                          {item.isNew ? "New" : "Popular"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </section>
+      ))}
+
+      {/* Bottom CTA — fades up */}
+      <AnimatedSection direction="up" duration={0.6}>
+        <section className="bg-accent-500 py-12 sm:py-16">
+          <div className="max-w-4xl mx-auto px-8 text-center">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-white mb-4">
+              Can&apos;t Decide?
+            </h2>
+            <p className="text-white/80 text-base sm:text-lg mb-6">
+              Let our baristas recommend the perfect drink for you.
+            </p>
+          </div>
+        </section>
+      </AnimatedSection>
     </>
   );
 }

@@ -43,11 +43,11 @@ export default function CareersPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-20">
+      <section className="relative py-24 bg-cream-100">
+        <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=1920"
-            alt=""
+            src="/images/gallery/shop-interior-3.webp"
+            alt="Arabica coffee shop"
             fill
             className="object-cover"
             priority
@@ -55,10 +55,10 @@ export default function CareersPage() {
         </div>
         <SectionContainer className="relative text-center">
           <AnimatedSection>
-            <Heading as="h1" size="hero" className="text-cream-50 mb-6">
+            <Heading as="h1" size="hero" className="text-coffee-900 mb-6">
               Join Our Team
             </Heading>
-            <p className="text-xl text-cream-200 max-w-3xl mx-auto">
+            <p className="text-xl text-coffee-600 max-w-3xl mx-auto">
               Love coffee? Love people? We're looking for passionate individuals
               to join the Arabica family.
             </p>
@@ -159,7 +159,7 @@ export default function CareersPage() {
 
                       <div className="mt-6 md:mt-0 md:shrink-0">
                         <Button asChild>
-                          <a href={`mailto:careers@arabicacoffee.com?subject=Application: ${job.title}`}>
+                          <a href={`mailto:arabicaacademy27@gmail.com?subject=Job Application: ${job.title}`}>
                             Apply Now
                           </a>
                         </Button>
@@ -186,7 +186,7 @@ export default function CareersPage() {
               team.
             </p>
             <Button size="lg" variant="outline" asChild>
-              <a href="mailto:careers@arabicacoffee.com?subject=General Application">
+              <a href="mailto:arabicaacademy27@gmail.com?subject=General Job Application">
                 Send General Application
               </a>
             </Button>

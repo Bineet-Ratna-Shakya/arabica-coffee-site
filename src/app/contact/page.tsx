@@ -4,281 +4,274 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { motion } from "motion/react";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
-import { SectionContainer } from "@/components/shared/section-container";
-import { Heading } from "@/components/shared/heading";
-import { AnimatedSection } from "@/components/shared/animated-section";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Send,
+  CheckCircle,
+  Coffee,
+  GraduationCap,
+  MapPin,
+  Phone,
+  Mail,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { siteConfig } from "@/lib/constants";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 
-const contactSchema = z.object({
+// --- Schemas ---
+
+const generalSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
-  phone: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+const academySchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  course: z.string().min(1, "Please select a course"),
+  experience: z.string().min(1, "Please select your experience level"),
+  message: z.string().optional(),
+});
 
-export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  
+type GeneralFormData = z.infer<typeof generalSchema>;
+type AcademyFormData = z.infer<typeof academySchema>;
+type FormType = "general" | "academy";
+
+const courses = [
+  "SCA-Certified Barista Skills",
+];
+
+const experienceLevels = [
+  "Complete Beginner",
+  "Home Brewer",
+  "Some Caf\u00e9 Experience",
+  "Professional Barista",
+];
+
+// --- Sub-components ---
+
+function SuccessMessage({ type }: { type: FormType }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-12 text-center">
+      <div className="w-12 h-12 bg-accent-500 flex items-center justify-center mb-4">
+        <CheckCircle className="h-6 w-6 text-cream-50" />
+      </div>
+      <h3 className="font-heading text-xl text-coffee-900 mb-1">
+        {type === "general" ? "Message Sent!" : "Inquiry Sent!"}
+      </h3>
+      <p className="text-coffee-500 text-sm">
+        {type === "general"
+          ? "We\u2019ll get back to you soon."
+          : "Our team will reach out with course details shortly."}
+      </p>
+    </div>
+  );
+}
+
+function GeneralForm({ onSuccess }: { onSuccess: () => void }) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
+  } = useForm<GeneralFormData>({ resolver: zodResolver(generalSchema) });
 
-  const onSubmit = async (data: ContactFormData) => {
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("Form submitted:", data);
-    setIsSubmitted(true);
+  const onSubmit = async (data: GeneralFormData) => {
+    const subject = encodeURIComponent(`Contact from ${data.name}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`
+    );
+    window.open(`mailto:arabicaacademy27@gmail.com?subject=${subject}&body=${body}`, "_self");
     reset();
-    setTimeout(() => setIsSubmitted(false), 5000);
+    onSuccess();
   };
 
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=1920"
-            alt=""
-            fill
-            className="object-cover"
-            priority
-          />
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="gen-name">Name *</Label>
+          <Input id="gen-name" placeholder="Your name" {...register("name")} aria-invalid={errors.name ? "true" : "false"} />
+          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
         </div>
-        <SectionContainer className="relative text-center">
-          <AnimatedSection>
-            <Heading as="h1" size="hero" className="text-cream-50 mb-6">
-              Contact Us
-            </Heading>
-            <p className="text-xl text-cream-200 max-w-3xl mx-auto">
-              We'd love to hear from you. Drop by, give us a call, or send us a
-              message.
-            </p>
-          </AnimatedSection>
-        </SectionContainer>
-      </section>
+        <div className="space-y-1.5">
+          <Label htmlFor="gen-email">Email *</Label>
+          <Input id="gen-email" type="email" placeholder="your@email.com" {...register("email")} aria-invalid={errors.email ? "true" : "false"} />
+          {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="gen-message">Message *</Label>
+        <Textarea id="gen-message" placeholder="How can we help you?" rows={4} {...register("message")} aria-invalid={errors.message ? "true" : "false"} />
+        {errors.message && <p className="text-xs text-red-500">{errors.message.message}</p>}
+      </div>
+      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Sending..." : (<>Send Message <Send className="ml-2 h-4 w-4" /></>)}
+      </Button>
+    </form>
+  );
+}
 
-      {/* Contact Content */}
-      <section className="py-24">
-        <SectionContainer>
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Form */}
-            <AnimatedSection direction="left">
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="font-heading text-2xl font-semibold text-coffee-800 mb-6">
-                    Send Us a Message
-                  </h2>
+function AcademyForm({ onSuccess }: { onSuccess: () => void }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<AcademyFormData>({ resolver: zodResolver(academySchema) });
 
-                  {isSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="flex flex-col items-center justify-center py-12 text-center"
-                    >
-                      <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-                        <CheckCircle className="h-8 w-8 text-green-600" />
-                      </div>
-                      <h3 className="font-heading text-xl font-semibold text-coffee-800 mb-2">
-                        Message Sent!
-                      </h3>
-                      <p className="text-coffee-600">
-                        Thank you for reaching out. We'll get back to you soon.
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name *</Label>
-                        <Input
-                          id="name"
-                          placeholder="Your name"
-                          {...register("name")}
-                          aria-invalid={errors.name ? "true" : "false"}
-                        />
-                        {errors.name && (
-                          <p className="text-sm text-red-600">
-                            {errors.name.message}
-                          </p>
-                        )}
-                      </div>
+  const onSubmit = async (data: AcademyFormData) => {
+    const subject = encodeURIComponent(`Academy Inquiry from ${data.name}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\nCourse: ${data.course}\nExperience: ${data.experience}${data.message ? `\n\n${data.message}` : ""}`
+    );
+    window.open(`mailto:arabicaacademy27@gmail.com?subject=${subject}&body=${body}`, "_self");
+    reset();
+    onSuccess();
+  };
 
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your@email.com"
-                          {...register("email")}
-                          aria-invalid={errors.email ? "true" : "false"}
-                        />
-                        {errors.email && (
-                          <p className="text-sm text-red-600">
-                            {errors.email.message}
-                          </p>
-                        )}
-                      </div>
+  const selectClasses =
+    "flex h-10 w-full border border-coffee-300 bg-white px-3 py-2 text-sm text-coffee-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coffee-500 focus-visible:ring-offset-2";
 
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone (optional)</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="+1 (555) 000-0000"
-                          {...register("phone")}
-                        />
-                      </div>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="acad-name">Name *</Label>
+          <Input id="acad-name" placeholder="Your name" {...register("name")} aria-invalid={errors.name ? "true" : "false"} />
+          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="acad-email">Email *</Label>
+          <Input id="acad-email" type="email" placeholder="your@email.com" {...register("email")} aria-invalid={errors.email ? "true" : "false"} />
+          {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+        </div>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="acad-course">Course *</Label>
+          <select id="acad-course" className={selectClasses} defaultValue="" {...register("course")} aria-invalid={errors.course ? "true" : "false"}>
+            <option value="" disabled>Select a course</option>
+            {courses.map((c) => (<option key={c} value={c}>{c}</option>))}
+          </select>
+          {errors.course && <p className="text-xs text-red-500">{errors.course.message}</p>}
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="acad-experience">Experience *</Label>
+          <select id="acad-experience" className={selectClasses} defaultValue="" {...register("experience")} aria-invalid={errors.experience ? "true" : "false"}>
+            <option value="" disabled>Select level</option>
+            {experienceLevels.map((lvl) => (<option key={lvl} value={lvl}>{lvl}</option>))}
+          </select>
+          {errors.experience && <p className="text-xs text-red-500">{errors.experience.message}</p>}
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <Label htmlFor="acad-message">Anything else? (optional)</Label>
+        <Textarea id="acad-message" placeholder="Goals, preferred schedule, questions..." rows={3} {...register("message")} />
+      </div>
+      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Sending..." : (<>Submit Inquiry <Send className="ml-2 h-4 w-4" /></>)}
+      </Button>
+    </form>
+  );
+}
 
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message *</Label>
-                        <Textarea
-                          id="message"
-                          placeholder="How can we help you?"
-                          rows={5}
-                          {...register("message")}
-                          aria-invalid={errors.message ? "true" : "false"}
-                        />
-                        {errors.message && (
-                          <p className="text-sm text-red-600">
-                            {errors.message.message}
-                          </p>
-                        )}
-                      </div>
+// --- Page ---
 
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          "Sending..."
-                        ) : (
-                          <>
-                            Send Message
-                            <Send className="ml-2 h-4 w-4" />
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
-            </AnimatedSection>
+export default function ContactPage() {
+  const [activeTab, setActiveTab] = useState<FormType>("general");
+  const [submitted, setSubmitted] = useState<FormType | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-            {/* Contact Info */}
-            <AnimatedSection direction="right" delay={0.2}>
-              <div className="space-y-8">
-                {/* Info Cards */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Card>
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-full bg-gold-500/10 flex items-center justify-center shrink-0">
-                        <MapPin className="h-6 w-6 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-coffee-800 mb-1">
-                          Address
-                        </h3>
-                        <p className="text-sm text-coffee-600">
-                          {siteConfig.contact.address}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
-                  <Card>
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-full bg-gold-500/10 flex items-center justify-center shrink-0">
-                        <Phone className="h-6 w-6 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-coffee-800 mb-1">
-                          Phone
-                        </h3>
-                        <a
-                          href={`tel:${siteConfig.contact.phone}`}
-                          className="text-sm text-coffee-600 hover:text-coffee-800"
-                        >
-                          {siteConfig.contact.phone}
-                        </a>
-                      </div>
-                    </CardContent>
-                  </Card>
+  const handleSuccess = (type: FormType) => {
+    setSubmitted(type);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setSubmitted(null), 5000);
+  };
 
-                  <Card>
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-full bg-gold-500/10 flex items-center justify-center shrink-0">
-                        <Mail className="h-6 w-6 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-coffee-800 mb-1">
-                          Email
-                        </h3>
-                        <a
-                          href={`mailto:${siteConfig.contact.email}`}
-                          className="text-sm text-coffee-600 hover:text-coffee-800"
-                        >
-                          {siteConfig.contact.email}
-                        </a>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-full bg-gold-500/10 flex items-center justify-center shrink-0">
-                        <Clock className="h-6 w-6 text-gold-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-coffee-800 mb-1">
-                          Hours
-                        </h3>
-                        <p className="text-sm text-coffee-600">
-                          Mon-Fri: {siteConfig.hours.weekdays}
-                          <br />
-                          Sat: {siteConfig.hours.saturday}
-                          <br />
-                          Sun: {siteConfig.hours.sunday}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Map */}
-                <div className="relative h-[300px] rounded-xl overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7066465813897!2d-118.2436849!3d34.0522342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c7b85dea2a93%3A0x1ff47c3ceb7bb2d5!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Arabica Coffee Location"
-                  />
-                </div>
-              </div>
-            </AnimatedSection>
+  return (
+    <section className="relative bg-cream-50 min-h-screen flex items-center justify-center py-28 px-6 overflow-hidden">
+      {/* Step and Repeat Logo Backdrop */}
+      <div className="absolute inset-0 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-8 p-8 opacity-[0.04]" aria-hidden="true">
+        {Array.from({ length: 64 }).map((_, i) => (
+          <div key={i} className="flex items-center justify-center">
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={80}
+              height={27}
+              className="w-full h-auto"
+            />
           </div>
-        </SectionContainer>
-      </section>
-    </>
+        ))}
+      </div>
+
+      <div className="relative z-10 w-full max-w-xl">
+        {/* Tab Switcher */}
+        <div className="flex mb-8 border-2 border-coffee-900">
+          <button
+            type="button"
+            onClick={() => { setActiveTab("general"); setSubmitted(null); }}
+            className={cn(
+              "flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-wide transition-colors",
+              activeTab === "general"
+                ? "bg-coffee-900 text-cream-50"
+                : "bg-transparent text-coffee-700 hover:bg-coffee-100"
+            )}
+          >
+            <Coffee className="w-4 h-4" />
+            General
+          </button>
+          <button
+            type="button"
+            onClick={() => { setActiveTab("academy"); setSubmitted(null); }}
+            className={cn(
+              "flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-wide transition-colors border-l-2 border-coffee-900",
+              activeTab === "academy"
+                ? "bg-coffee-900 text-cream-50"
+                : "bg-transparent text-coffee-700 hover:bg-coffee-100"
+            )}
+          >
+            <GraduationCap className="w-4 h-4" />
+            Academy
+          </button>
+        </div>
+
+        {/* Form */}
+        {submitted ? (
+          <SuccessMessage type={submitted} />
+        ) : activeTab === "general" ? (
+          <GeneralForm onSuccess={() => handleSuccess("general")} />
+        ) : (
+          <AcademyForm onSuccess={() => handleSuccess("academy")} />
+        )}
+
+        {/* Contact details */}
+        <div className="mt-10 pt-8 border-t border-coffee-200 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-coffee-500">
+          <a href={`tel:${siteConfig.contact.phone}`} className="flex items-center gap-2 hover:text-coffee-900 transition-colors">
+            <Phone className="w-3.5 h-3.5" />
+            {siteConfig.contact.phoneDisplay}
+          </a>
+          <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-2 hover:text-coffee-900 transition-colors">
+            <Mail className="w-3.5 h-3.5" />
+            {siteConfig.contact.email}
+          </a>
+          <span className="flex items-center gap-2">
+            <MapPin className="w-3.5 h-3.5" />
+            {siteConfig.contact.address.street}, {siteConfig.contact.address.city}
+          </span>
+        </div>
+      </div>
+    </section>
   );
 }

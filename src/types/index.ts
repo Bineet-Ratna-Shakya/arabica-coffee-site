@@ -10,16 +10,18 @@ export interface MenuItem {
   isPopular?: boolean;
 }
 
-export type MenuCategory = "coffee" | "drinks" | "pastries" | "specialties";
-
-// Team member type
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-}
+export type MenuCategory =
+  | "hot-coffee"
+  | "cold-iced-coffee"
+  | "smoothies"
+  | "blended-coffee"
+  | "coffee-alternatives"
+  | "healthy-breakfast"
+  | "matcha"
+  | "ice-cream"
+  | "water"
+  | "fresh-juice"
+  | "bakery";
 
 // Event type
 export interface CoffeeEvent {
@@ -46,16 +48,6 @@ export interface BlogPost {
   readTime: string;
 }
 
-// Testimonial type
-export interface Testimonial {
-  id: string;
-  name: string;
-  role?: string;
-  content: string;
-  rating: number;
-  image?: string;
-}
-
 // Job listing type
 export interface JobListing {
   id: string;
@@ -80,12 +72,6 @@ export interface GalleryImage {
   alt: string;
   width: number;
   height: number;
+  category?: "cafe" | "academy" | "exterior";
 }
 
-// Contact form data type
-export interface ContactFormData {
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-}

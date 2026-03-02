@@ -1,49 +1,61 @@
 @import "tailwindcss";
 
 /* ========================================
-   ARABICA COFFEE - Custom Theme
+   ARABICA COFFEE - Brutalist Theme
    ======================================== */
 
 @theme {
-  /* Coffee Brand Colors - Warm Browns */
-  --color-coffee-50: oklch(0.98 0.01 60);
-  --color-coffee-100: oklch(0.94 0.02 55);
-  --color-coffee-200: oklch(0.86 0.04 50);
-  --color-coffee-300: oklch(0.73 0.07 45);
-  --color-coffee-400: oklch(0.58 0.09 40);
-  --color-coffee-500: oklch(0.46 0.10 35);
-  --color-coffee-600: oklch(0.38 0.09 32);
-  --color-coffee-700: oklch(0.31 0.08 30);
-  --color-coffee-800: oklch(0.25 0.06 28);
-  --color-coffee-900: oklch(0.20 0.05 25);
-  --color-coffee-950: oklch(0.14 0.04 22);
+  /* High Contrast Palette */
+  --color-coffee-50: oklch(0.98 0.004 85);
+  --color-coffee-100: oklch(0.95 0.006 80);
+  --color-coffee-200: oklch(0.9 0.01 75);
+  --color-coffee-300: oklch(0.82 0.018 70);
+  --color-coffee-400: oklch(0.68 0.025 65);
+  --color-coffee-500: oklch(0.56 0.04 55);
+  --color-coffee-600: oklch(0.44 0.05 45);
+  --color-coffee-700: oklch(0.35 0.05 40);
+  --color-coffee-800: oklch(0.27 0.04 35);
+  --color-coffee-900: oklch(0.18 0.03 30);
+  --color-coffee-950: oklch(0.14 0.02 25);
 
-  /* Warm Cream / Beige Tones */
-  --color-cream-50: oklch(0.99 0.008 85);
-  --color-cream-100: oklch(0.97 0.015 80);
-  --color-cream-200: oklch(0.94 0.025 75);
-  --color-cream-300: oklch(0.90 0.035 70);
-  --color-cream-400: oklch(0.85 0.04 65);
+  /* Cream Accent Tones */
+  --color-cream-50: oklch(0.99 0.006 88);
+  --color-cream-100: oklch(0.97 0.01 86);
+  --color-cream-200: oklch(0.94 0.016 82);
+  --color-cream-300: oklch(0.9 0.02 78);
+  --color-cream-400: oklch(0.86 0.028 74);
 
-  /* Accent - Warm Gold */
-  --color-gold-300: oklch(0.85 0.12 85);
-  --color-gold-400: oklch(0.78 0.14 80);
-  --color-gold-500: oklch(0.70 0.15 75);
-  --color-gold-600: oklch(0.60 0.13 70);
+  /* Keep gold for minimal accent use */
+  --color-gold-300: oklch(0.83 0.08 85);
+  --color-gold-400: oklch(0.78 0.09 82);
+  --color-gold-500: oklch(0.72 0.1 80);
+  --color-gold-600: oklch(0.62 0.09 76);
 
-  /* Font Families */
-  --font-heading: "Playfair Display", Georgia, serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* Accent Orange - Bold editorial accent */
+  --color-accent-400: oklch(0.68 0.2 35);
+  --color-accent-500: oklch(0.62 0.22 32);
+  --color-accent-600: oklch(0.56 0.2 30);
 
-  /* Border Radius */
-  --radius-soft: 0.75rem;
-  --radius-card: 1rem;
-  --radius-button: 0.5rem;
+  /* Monospace Font Families */
+  --font-heading: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+  --font-body: "Space Mono", "IBM Plex Mono", "Courier New", monospace;
 
-  /* Shadows */
-  --shadow-soft: 0 4px 20px -4px oklch(0.25 0.06 28 / 0.15);
-  --shadow-card: 0 8px 30px -8px oklch(0.25 0.06 28 / 0.2);
-  --shadow-elevated: 0 20px 50px -12px oklch(0.25 0.06 28 / 0.25);
+  /* No Border Radius - Brutalist */
+  --radius-soft: 0;
+  --radius-card: 0;
+  --radius-button: 0;
+
+  /* No Soft Shadows - Brutalist */
+  --shadow-soft: none;
+  --shadow-card: none;
+  --shadow-elevated: none;
+
+  /* Warm white override */
+  --color-white: #FFFAED;
+
+  /* Brutalist Hard Shadow */
+  --shadow-brutal: 4px 4px 0 var(--color-coffee-900);
+  --shadow-brutal-lg: 6px 6px 0 var(--color-coffee-900);
 }
 
 /* ========================================
@@ -53,37 +65,37 @@
 :root {
   --background: var(--color-cream-50);
   --foreground: var(--color-coffee-950);
-  
-  --card: var(--color-cream-100);
+
+  --card: var(--color-cream-50);
   --card-foreground: var(--color-coffee-900);
-  
+
   --popover: var(--color-cream-50);
   --popover-foreground: var(--color-coffee-950);
-  
-  --primary: var(--color-coffee-700);
+
+  --primary: var(--color-coffee-900);
   --primary-foreground: var(--color-cream-50);
-  
+
   --secondary: var(--color-cream-200);
-  --secondary-foreground: var(--color-coffee-800);
-  
+  --secondary-foreground: var(--color-coffee-900);
+
   --muted: var(--color-cream-200);
-  --muted-foreground: var(--color-coffee-500);
-  
-  --accent: var(--color-gold-500);
-  --accent-foreground: var(--color-coffee-950);
-  
+  --muted-foreground: var(--color-coffee-600);
+
+  --accent: var(--color-cream-300);
+  --accent-foreground: var(--color-coffee-900);
+
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: var(--color-cream-50);
-  
-  --border: var(--color-cream-300);
-  --input: var(--color-cream-200);
-  --ring: var(--color-coffee-400);
-  
-  --radius: 0.75rem;
+
+  --border: var(--color-coffee-900);
+  --input: var(--color-cream-50);
+  --ring: var(--color-coffee-900);
+
+  --radius: 0;
 }
 
 /* ========================================
-   Base Styles
+   Base Styles - Brutalist
    ======================================== */
 
 * {
@@ -92,22 +104,72 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent layout shift during navigation */
+  overflow-y: scroll;
+}
+
+/* Smooth page transitions */
+main {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Global smooth transitions for interactive elements */
+a, button, input, textarea, select {
+  transition: all 0.2s ease;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Border on all images except inside the navbar, marquee, and hero */
+#main-content img:not(.marquee-track img):not(.hero-bg),
+footer img {
+  border: 4px solid var(--color-coffee-900);
+}
+#main-content .marquee-track img {
+  border: none;
+}
+
+/* Fix for Radix dialog body scroll lock persisting after navigation */
+body[data-scroll-locked] {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0) !important;
+}
+
+/* Mobile nav scroll lock */
+body.nav-open {
+  overflow: hidden;
 }
 
 body {
   font-family: var(--font-body);
   background: var(--background);
   color: var(--foreground);
-  line-height: 1.7;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--color-coffee-900);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 640px) {
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.05em;
+  }
 }
 
 /* ========================================
@@ -115,12 +177,12 @@ h1, h2, h3, h4, h5, h6 {
    ======================================== */
 
 ::selection {
-  background: var(--color-gold-400);
-  color: var(--color-coffee-950);
+  background: var(--color-coffee-900);
+  color: var(--color-cream-50);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-coffee-500);
+  outline: 3px solid var(--color-coffee-900);
   outline-offset: 2px;
 }
 
@@ -148,57 +210,224 @@ h1, h2, h3, h4, h5, h6 {
   top: -100%;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-coffee-700);
+  background: var(--color-coffee-900);
   color: var(--color-cream-50);
   padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-button);
-  z-index: 100;
-  transition: top 0.2s ease;
+  border: 3px solid var(--color-coffee-900);
+  z-index: 9999;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
 }
 
 .skip-link:focus {
   top: 1rem;
+  outline: 3px solid var(--color-accent-500);
+  outline-offset: 2px;
 }
 
 /* ========================================
-   Custom Scrollbar
+   Hide Scrollbar
    ======================================== */
 
+* {
+  scrollbar-width: none;
+}
+
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-cream-100);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-coffee-300);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-coffee-400);
+  display: none;
 }
 
 /* ========================================
-   Utility Classes
+   Brutalist Utility Classes
    ======================================== */
 
 .text-balance {
   text-wrap: balance;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-coffee-700), var(--color-gold-500));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.border-brutal {
+  border: 3px solid var(--color-coffee-900);
 }
 
-.glass-effect {
-  background: oklch(0.99 0.008 85 / 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.border-brutal-2 {
+  border: 2px solid var(--color-coffee-900);
+}
+
+.border-brutal-4 {
+  border: 4px solid var(--color-coffee-900);
+}
+
+.shadow-brutal {
+  box-shadow: 4px 4px 0 var(--color-coffee-900);
+}
+
+.shadow-brutal-lg {
+  box-shadow: 6px 6px 0 var(--color-coffee-900);
+}
+
+.shadow-brutal-sm {
+  box-shadow: 2px 2px 0 var(--color-coffee-900);
+}
+
+/* Hover state for brutalist shadow */
+.hover-brutal:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--color-coffee-900);
+}
+
+.hover-brutal:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--color-coffee-900);
+}
+
+/* Uppercase tracking utility */
+.text-brutal {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+/* Marquee animation - keep for brand strip */
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+/* Only animate if user doesn't prefer reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee 22s linear infinite;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ========================================
+   Coffee Loading Animation
+   ======================================== */
+
+/* Screen entrance */
+.loading-screen {
+  animation: loading-entrance 0.3s ease-out;
+}
+
+@keyframes loading-entrance {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fade in elements */
+.loading-fade-in {
+  animation: loading-fade-up 0.6s ease-out 0.2s both;
+}
+
+@keyframes loading-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Coffee fill with wave surface */
+.loading-coffee-fill {
+  animation: coffee-fill 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes coffee-fill {
+  0% { height: 0%; }
+  70% { height: 85%; }
+  100% { height: 85%; }
+}
+
+/* Coffee surface wave */
+.loading-coffee-wave {
+  position: absolute;
+  top: -4px;
+  left: -10%;
+  width: 120%;
+  height: 8px;
+  background: var(--color-coffee-700);
+  border-radius: 50%;
+  animation: coffee-wave 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes coffee-wave {
+  from { transform: translateX(-3%) rotate(-1deg); }
+  to { transform: translateX(3%) rotate(1deg); }
+}
+
+/* Steam - wavy rise */
+.loading-steam {
+  opacity: 0;
+  animation: steam-rise 2.2s ease-out infinite;
+}
+
+.loading-steam-1 { animation-delay: 1.4s; }
+.loading-steam-2 { animation-delay: 1.7s; }
+.loading-steam-3 { animation-delay: 2.0s; }
+
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-16px); }
+}
+
+/* Animated dots */
+.loading-dots {
+  display: inline-flex;
+  width: 1.5em;
+}
+
+.loading-dot {
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(1) { animation-delay: 0s; }
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-pulse {
+  0%, 60%, 100% { opacity: 0.2; }
+  30% { opacity: 1; }
+}
+
+/* ========================================
+   Hero Headline Effects
+   ======================================== */
+
+/* Ken Burns slow zoom — pure CSS to avoid hydration mismatches */
+.hero-ken-burns {
+  animation: ken-burns 25s linear forwards;
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1.15); }
+  to { transform: scale(1); }
+}
+
+/* Outlined / stroke text — transparent fill with white stroke */
+.hero-text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+  paint-order: stroke fill;
+}
+
+@media (min-width: 640px) {
+  .hero-text-outline {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+/* Accent word — filled with warm glow bleed */
+.hero-accent-glow {
+  text-shadow:
+    0 0 40px oklch(0.62 0.22 32 / 0.5),
+    0 0 100px oklch(0.62 0.22 32 / 0.25),
+    0 0 200px oklch(0.62 0.22 32 / 0.1);
 }

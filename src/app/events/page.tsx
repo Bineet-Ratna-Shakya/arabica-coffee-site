@@ -24,11 +24,11 @@ export default function EventsPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-20">
+      <section className="relative py-24 bg-cream-100">
+        <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920"
-            alt=""
+            src="/images/gallery/shop-interior-1.webp"
+            alt="Arabica coffee shop"
             fill
             className="object-cover"
             priority
@@ -36,10 +36,10 @@ export default function EventsPage() {
         </div>
         <SectionContainer className="relative text-center">
           <AnimatedSection>
-            <Heading as="h1" size="hero" className="text-cream-50 mb-6">
+            <Heading as="h1" size="hero" className="text-coffee-900 mb-6">
               Events
             </Heading>
-            <p className="text-xl text-cream-200 max-w-3xl mx-auto">
+            <p className="text-xl text-coffee-600 max-w-3xl mx-auto">
               From coffee workshops to live music nights, there's always
               something happening at Arabica.
             </p>
@@ -62,14 +62,14 @@ export default function EventsPage() {
                 <Card className="h-full overflow-hidden group hover:shadow-card transition-all duration-300">
                   <div className="relative h-48 overflow-hidden bg-coffee-100">
                     <Image
-                      src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600"
+                      src="/images/gallery/shop-counter-2.webp"
                       alt={event.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                     <div className="absolute top-4 left-4">
-                      <Badge variant="gold">Upcoming</Badge>
+                      <Badge variant="accent">Upcoming</Badge>
                     </div>
                   </div>
                   <CardContent className="p-6">

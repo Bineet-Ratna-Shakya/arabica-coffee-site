@@ -22,11 +22,11 @@ export default function BlogPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-20">
+      <section className="relative py-24 bg-cream-100">
+        <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920"
-            alt=""
+            src="/images/gallery/shop-counter-2.webp"
+            alt="Arabica coffee shop"
             fill
             className="object-cover"
             priority
@@ -34,10 +34,10 @@ export default function BlogPage() {
         </div>
         <SectionContainer className="relative text-center">
           <AnimatedSection>
-            <Heading as="h1" size="hero" className="text-cream-50 mb-6">
+            <Heading as="h1" size="hero" className="text-coffee-900 mb-6">
               The Arabica Blog
             </Heading>
-            <p className="text-xl text-cream-200 max-w-3xl mx-auto">
+            <p className="text-xl text-coffee-600 max-w-3xl mx-auto">
               Stories, tips, and insights from our world of specialty coffee.
             </p>
           </AnimatedSection>
@@ -60,7 +60,7 @@ export default function BlogPage() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute top-4 left-4">
-                      <Badge variant="gold">Featured</Badge>
+                      <Badge variant="accent">Featured</Badge>
                     </div>
                   </div>
                   <CardContent className="p-8 flex flex-col justify-center">

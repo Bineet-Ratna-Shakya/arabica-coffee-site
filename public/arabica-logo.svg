@@ -1,0 +1,17 @@
+<svg width="360" height="200" viewBox="0 0 360 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Arabica Specialty Coffee House</title>
+  <g transform="translate(90 0)">
+    <ellipse cx="90" cy="80" rx="82" ry="60" stroke="#a86b36" stroke-width="8" fill="none"/>
+    <path d="M90 24c-20 18-30 44-30 74 0 30 10 56 30 74 20-18 30-44 30-74 0-30-10-56-30-74Z" stroke="#a86b36" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 52c22 12 48 18 75 18s53-6 75-18" stroke="#a86b36" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M15 108c22-12 48-18 75-18s53 6 75 18" stroke="#a86b36" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M40 32c14 14 32 22 50 22s36-8 50-22" stroke="#a86b36" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M40 128c14-14 32-22 50-22s36 8 50 22" stroke="#a86b36" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
+  <text x="180" y="168" text-anchor="middle" font-family="'Space Grotesk','Manrope','Helvetica Neue',Arial,sans-serif" font-size="46" font-weight="800" fill="#111">
+    ARABICA
+  </text>
+  <text x="180" y="192" text-anchor="middle" font-family="'Playfair Display','Times New Roman',serif" font-size="22" font-weight="500" fill="#111">
+    Specialty Coffee House
+  </text>
+</svg>

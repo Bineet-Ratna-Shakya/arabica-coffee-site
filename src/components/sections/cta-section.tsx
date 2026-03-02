@@ -1,89 +1,96 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
-import { MapPin, Clock } from "lucide-react";
-import { SectionContainer } from "@/components/shared/section-container";
-import { AnimatedSection } from "@/components/shared/animated-section";
+import { MapPin, Clock, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/constants";
+import { ParallaxImage } from "@/components/effects/parallax";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/animated-section";
 
 export function CTASection() {
   return (
-    <section className="py-24">
-      <SectionContainer>
-        <div className="grid gap-12 lg:grid-cols-2 items-center">
-          {/* Image Side */}
-          <AnimatedSection direction="left" className="relative">
-            <div className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800"
-                alt="Arabica Coffee Shop Interior"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-coffee-900/40 to-transparent" />
-            </div>
-
-            {/* Floating Card */}
-            <motion.div
-              className="absolute -bottom-6 -right-6 bg-cream-50 rounded-xl p-5 shadow-elevated max-w-[200px]"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="h-10 w-10 rounded-full bg-gold-500/20 flex items-center justify-center">
-                  <Clock className="h-5 w-5 text-gold-600" />
-                </div>
-                <span className="font-heading font-semibold text-coffee-800">
-                  Open Now
-                </span>
-              </div>
-              <p className="text-sm text-coffee-600">
-                {siteConfig.hours.weekdays}
+    <section className="bg-cream-50">
+      {/* Split layout */}
+      <div className="grid lg:grid-cols-2 min-h-[70vh]">
+        {/* Left side - Text content */}
+        <div className="flex flex-col justify-center px-5 sm:px-8 lg:px-16 py-12 sm:py-16">
+          <div className="max-w-lg">
+            <AnimatedSection direction="up" delay={0.1}>
+              <p className="text-accent-500 text-sm font-bold uppercase tracking-[0.2em] mb-4">
+                Visit Us
               </p>
-            </motion.div>
-          </AnimatedSection>
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-coffee-900 leading-[0.95] mb-6">
+                Purple
+                <br />
+                House,
+                <br />
+                <span className="text-accent-500">Bagbazar</span>
+              </h2>
+              <p className="text-coffee-600 text-lg leading-relaxed mb-10">
+                Drop by for your daily dose of specialty coffee or book the space for your next event.
+              </p>
+            </AnimatedSection>
 
-          {/* Content Side */}
-          <AnimatedSection direction="right" delay={0.2}>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-coffee-900 mb-6">
-              Visit Us Today
-            </h2>
-            <p className="text-lg text-coffee-600 leading-relaxed mb-6">
-              Step into our warm and inviting space, where the aroma of freshly
-              roasted coffee fills the air. Whether you&apos;re looking for a quiet
-              corner to work or a cozy spot to catch up with friends, we&apos;ve
-              got the perfect seat for you.
-            </p>
+            {/* Contact info */}
+            <StaggerContainer className="space-y-4 mb-10" staggerDelay={0.1} delayChildren={0.2}>
+              <StaggerItem>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-coffee-900 flex items-center justify-center text-cream-50">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-coffee-500">Hours</div>
+                    <div className="font-medium text-coffee-900">Mon–Fri {siteConfig.hours.weekdays}</div>
+                  </div>
+                </div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-coffee-900 flex items-center justify-center text-cream-50">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-coffee-500">Location</div>
+                    <div className="font-medium text-coffee-900">{siteConfig.contact.address.full}</div>
+                  </div>
+                </div>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-coffee-900 flex items-center justify-center text-cream-50">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-coffee-500">Phone</div>
+                    <div className="font-medium text-coffee-900">{siteConfig.contact.phone}</div>
+                  </div>
+                </div>
+              </StaggerItem>
+            </StaggerContainer>
 
-            <div className="flex items-start gap-4 mb-8">
-              <div className="h-12 w-12 rounded-full bg-coffee-100 flex items-center justify-center shrink-0">
-                <MapPin className="h-6 w-6 text-coffee-600" />
+            <AnimatedSection direction="up" delay={0.4}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" asChild>
+                  <Link href="/contact">Get Directions</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/contact">Contact Us</Link>
+                </Button>
               </div>
-              <div>
-                <h3 className="font-semibold text-coffee-800 mb-1">
-                  Our Location
-                </h3>
-                <p className="text-coffee-600">{siteConfig.contact.address}</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild>
-                <Link href="/contact">Get Directions</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/menu">View Menu</Link>
-              </Button>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
         </div>
-      </SectionContainer>
+
+        {/* Right side - Image with parallax */}
+        <ParallaxImage speed={0.2} className="min-h-[50vh] lg:min-h-full">
+          <Image
+            src="/images/purplehouse.png"
+            alt="The Purple House — Arabica's home in Bagbazar, Kathmandu"
+            fill
+            className="object-cover"
+            sizes="50vw"
+          />
+        </ParallaxImage>
+      </div>
     </section>
   );
 }

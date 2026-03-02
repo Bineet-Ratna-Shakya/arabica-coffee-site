@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { JetBrains_Mono, Space_Mono } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { BackToTop } from "@/components/shared/back-to-top";
+import { RouteLoader } from "@/components/shared/route-loader";
 import { siteConfig } from "@/lib/constants";
+import {
+  OrganizationSchema,
+  LocalBusinessSchema,
+  WebSiteSchema,
+  CourseSchema,
+} from "@/components/seo/json-ld";
 import "@/styles/globals.css";
 
-const playfair = Playfair_Display({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-heading",
 });
 
-const inter = Inter({
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
@@ -33,9 +42,20 @@ export const metadata: Metadata = {
     "artisan coffee",
     "coffee house",
     "premium coffee",
+    "barista training",
+    "SCA certification",
+    "Kathmandu coffee",
+    "Nepal cafe",
+    "coffee academy",
+    "latte art",
+    "pour over coffee",
   ],
-  authors: [{ name: siteConfig.name }],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
+  publisher: siteConfig.name,
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -70,6 +90,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    // Add your verification codes when you have them
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+  },
 };
 
 export default function RootLayout({
@@ -78,8 +103,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="en" className={`${jetbrainsMono.variable} ${spaceMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-screen bg-cream-50 antialiased">
+        {/* JSON-LD Structured Data */}
+        <OrganizationSchema />
+        <LocalBusinessSchema />
+        <WebSiteSchema />
+        <CourseSchema />
+
         {/* Skip Link for Accessibility */}
         <a
           href="#main-content"
@@ -89,12 +127,21 @@ export default function RootLayout({
         </a>
 
         <Header />
-        
-        <main id="main-content" className="pt-20">
+
+        <main id="main-content" className="pt-16 lg:pt-0">
           {children}
         </main>
 
         <Footer />
+        <BackToTop />
+        <RouteLoader />
+
+        {/* Noscript fallback */}
+        <noscript>
+          <div style={{ padding: "20px", textAlign: "center" }}>
+            <p>Please enable JavaScript for the best experience on {siteConfig.name}.</p>
+          </div>
+        </noscript>
       </body>
     </html>
   );

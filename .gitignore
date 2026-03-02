@@ -40,8 +40,25 @@ next-env.d.ts
 # IDE
 .idea/
 .vscode/
+.claude/
 *.swp
 *.swo
 
 # OS
 Thumbs.db
+
+# Media / image artifacts (not source code)
+*.HEIC
+*.heic
+
+# Generated screenshots (puppeteer)
+screenshots/
+
+# Root-level design assets (not part of the app)
+header.png
+image-removebg-preview.png
+purplehouse.png
+IMG_1744.HEIC
+
+# Documentation
+Arabica Onboarding Document.pdf

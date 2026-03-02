@@ -64,8 +64,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <article>
       {/* Hero Section */}
-      <section className="relative py-24 bg-coffee-900">
-        <div className="absolute inset-0 opacity-30">
+      <section className="relative py-24 bg-cream-100">
+        <div className="absolute inset-0 opacity-10">
           <Image
             src={post.image}
             alt=""
@@ -74,26 +74,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-coffee-900 via-coffee-900/80 to-coffee-900/60" />
         <SectionContainer className="relative">
           <AnimatedSection>
             <Link
               href="/blog"
-              className="inline-flex items-center text-cream-300 hover:text-cream-100 mb-8 transition-colors"
+              className="inline-flex items-center text-coffee-500 hover:text-coffee-900 mb-8 transition-colors"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Blog
             </Link>
 
-            <Badge variant="gold" className="mb-4">
+            <Badge variant="accent" className="mb-4">
               {post.category}
             </Badge>
 
-            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-cream-50 mb-6 max-w-4xl">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-coffee-900 mb-6 max-w-4xl">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-cream-300">
+            <div className="flex flex-wrap items-center gap-6 text-coffee-500">
               <span className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 {post.author}

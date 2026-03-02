@@ -5,7 +5,6 @@ interface HeadingProps {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "hero";
   className?: string;
-  gradient?: boolean;
 }
 
 export function Heading({
@@ -13,7 +12,6 @@ export function Heading({
   as: Component = "h2",
   size = "lg",
   className,
-  gradient = false,
 }: HeadingProps) {
   const sizeClasses = {
     xs: "text-lg md:text-xl",
@@ -28,9 +26,8 @@ export function Heading({
   return (
     <Component
       className={cn(
-        "font-heading font-bold tracking-tight text-coffee-900",
+        "font-heading font-bold uppercase tracking-[0.05em] text-coffee-900",
         sizeClasses[size],
-        gradient && "gradient-text",
         className
       )}
     >
@@ -65,7 +62,7 @@ export function SectionHeader({
         {title}
       </Heading>
       {subtitle && (
-        <p className="text-lg text-coffee-600 leading-relaxed">{subtitle}</p>
+        <p className="text-base text-coffee-600">{subtitle}</p>
       )}
     </div>
   );
