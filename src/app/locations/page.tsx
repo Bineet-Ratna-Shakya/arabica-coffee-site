@@ -70,15 +70,15 @@ export default function LocationsPage() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
             {amenities.map((amenity, idx) => (
-              <AnimatedSection key={amenity.label} delay={0.3 + idx * 0.05} direction="up">
-                <div className="bg-white/10 backdrop-blur-sm border border-cream-50/10 p-4">
-                  <amenity.icon className="w-5 h-5 text-accent-400 mb-3" />
-                  <p className="text-cream-50 text-xs font-bold uppercase tracking-wider mb-1">
+              <AnimatedSection key={amenity.label} delay={0.3 + idx * 0.05} direction="up" className="h-full">
+                <div className="bg-white/10 backdrop-blur-sm border border-cream-50/10 p-3 sm:p-4 h-full">
+                  <amenity.icon className="w-5 h-5 text-accent-400 mb-2 sm:mb-3" />
+                  <p className="text-cream-50 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1">
                     {amenity.label}
                   </p>
-                  <p className="text-cream-50/40 text-[11px] leading-relaxed">
+                  <p className="text-cream-50/40 text-[10px] sm:text-[11px] leading-relaxed">
                     {amenity.desc}
                   </p>
                 </div>

@@ -86,12 +86,12 @@ export default function AcademyPage() {
           </AnimatedSection>
 
           {/* Stats row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
             {stats.map((stat, idx) => (
-              <AnimatedSection key={stat.label} delay={0.3 + idx * 0.05} direction="up">
-                <div className="bg-white/10 backdrop-blur-sm border border-cream-50/10 p-5">
+              <AnimatedSection key={stat.label} delay={0.3 + idx * 0.05} direction="up" className="h-full">
+                <div className="bg-white/10 backdrop-blur-sm border border-cream-50/10 p-4 sm:p-5 h-full">
                   <stat.icon className="w-5 h-5 text-accent-400 mb-3" />
-                  <p className="text-cream-50 font-heading text-2xl mb-1">
+                  <p className="text-cream-50 font-heading text-xl sm:text-2xl mb-1">
                     {stat.value}
                   </p>
                   <p className="text-cream-50/40 text-[11px] uppercase tracking-wider">
