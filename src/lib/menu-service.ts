@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { fetchMenuItemsFromSheet } from "./google-sheets";
 import { menuItems as staticMenuItems } from "./data";
-import type { MenuItem, MenuCategory } from "@/types";
+import type { MenuItem } from "@/types";
 
 const REVALIDATE_SECONDS = parseInt(process.env.MENU_REVALIDATE_SECONDS || "60", 10);
 
@@ -42,37 +42,3 @@ export const getMenuItems = unstable_cache(
     tags: ["menu"],
   }
 );
-
-/**
- * Get a single menu item by ID.
- */
-export async function getMenuItemById(id: string): Promise<MenuItem | undefined> {
-  const items = await getMenuItems();
-  return items.find((item) => item.id === id);
-}
-
-/**
- * Get menu items filtered by category.
- */
-export async function getMenuItemsByCategory(category: MenuCategory): Promise<MenuItem[]> {
-  const items = await getMenuItems();
-  return items.filter((item) => item.category === category);
-}
-
-/**
- * Get trending menu items (popular or new).
- */
-export async function getTrendingMenuItems(): Promise<MenuItem[]> {
-  const items = await getMenuItems();
-  return items.filter((item) => item.isPopular || item.isNew);
-}
-
-/**
- * Get featured menu items for homepage preview.
- */
-export async function getFeaturedMenuItems(limit: number = 4): Promise<MenuItem[]> {
-  const items = await getMenuItems();
-  return items
-    .filter((item) => item.isPopular || item.isNew)
-    .slice(0, limit);
-}
