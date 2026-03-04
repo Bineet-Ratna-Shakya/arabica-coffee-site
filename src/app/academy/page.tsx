@@ -10,11 +10,11 @@ import {
   BookOpen,
   CheckCircle,
   ArrowRight,
-  Clock,
-  Wrench,
+  Flame,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AnimatedSection } from "@/components/shared/animated-section";
+import { AnimatedSection, StaggerContainer, StaggerItem } from "@/components/shared/animated-section";
 import { siteConfig } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -32,79 +32,70 @@ const stats = [
 
 const whyUs = [
   {
-    title: "Structured Specialty Curriculum",
-    desc: "Our program follows globally recognized specialty coffee standards aligned with SCA, ASCA & AST frameworks.",
+    title: "Specialty Curriculum",
+    desc: "Globally recognized standards aligned with SCA, ASCA & AST frameworks.",
   },
   {
-    title: "Maximum Hands-on Training",
-    desc: "80% practical, 20% theory. Train in a real café-simulated environment using professional espresso machines.",
+    title: "80% Hands-on",
+    desc: "Real café-simulated environment. Professional espresso machines. Real pressure.",
   },
   {
-    title: "Small Batch Attention",
-    desc: "Personalized instruction ensures every student gets the hands-on time they need to build real confidence.",
+    title: "Small Batches",
+    desc: "Personalized attention. Every student gets the time they need to build confidence.",
   },
   {
-    title: "Career & Internship Support",
-    desc: "Career guidance, internship support, alumni network, and continued mentorship after graduation.",
+    title: "Career Support",
+    desc: "Internships, alumni network, mentorship, and job placement guidance.",
+  },
+  {
+    title: "Recognized Globally",
+    desc: "Our certification opens doors to cafés and employers across Nepal and abroad.",
+  },
+  {
+    title: "Real Café Training",
+    desc: "Not a classroom — you train where coffee is actually made, served, and loved.",
   },
 ];
 
 const idealFor = [
-  "Beginners with no prior experience",
-  "Coffee enthusiasts wanting professional skills",
-  "Aspiring & future café owners",
-  "Individuals planning to work abroad",
+  { label: "Zero experience? Perfect.", desc: "We start from scratch." },
+  { label: "Coffee nerd?", desc: "Go pro with certification." },
+  { label: "Opening a café?", desc: "Learn the business side too." },
+  { label: "Going abroad?", desc: "Get globally recognized skills." },
 ];
 
 const curriculum = [
   {
-    title: "Coffee Foundation & Specialty Knowledge",
-    topics: [
-      "Coffee origins and processing methods",
-      "Arabica vs Robusta understanding",
-    ],
+    title: "Coffee Foundation",
+    emoji: "🫘",
+    topics: ["Coffee origins & processing", "Arabica vs Robusta", "Specialty grading"],
   },
   {
     title: "Espresso Mastery",
-    topics: [
-      "Grinder calibration & dialing-in",
-      "Extraction control & troubleshooting",
-      "Consistency training",
-      "Speed and workflow efficiency",
-    ],
+    emoji: "☕",
+    topics: ["Grinder calibration & dialing-in", "Extraction control", "Consistency & speed", "Workflow efficiency"],
   },
   {
     title: "Milk Science & Latte Art",
-    topics: [
-      "Milk chemistry & texturing",
-      "Classic & advanced latte art patterns",
-      "Precision pouring techniques",
-      "Service speed training",
-    ],
+    emoji: "🥛",
+    topics: ["Milk chemistry & texturing", "Classic & advanced patterns", "Precision pouring", "Service speed"],
   },
   {
-    title: "Specialty Brewing Methods",
-    topics: [
-      "Pour-over techniques",
-      "French press & AeroPress",
-      "Cold brew & iced beverages",
-    ],
+    title: "Specialty Brewing",
+    emoji: "🫖",
+    topics: ["Pour-over techniques", "French press & AeroPress", "Cold brew & iced beverages"],
   },
   {
-    title: "Café Operations & Professional Skills",
-    topics: [
-      "Hygiene & machine maintenance",
-      "Bar workflow management",
-      "Customer communication & upselling",
-      "POS and service efficiency",
-    ],
+    title: "Café Ops & Pro Skills",
+    emoji: "🏪",
+    topics: ["Hygiene & machine care", "Bar workflow", "Customer communication", "POS & upselling"],
   },
 ];
 
 export default function AcademyPage() {
   return (
     <>
-      {/* Hero */}
+      {/* Hero — big, bold, confident */}
       <section className="relative bg-coffee-900 overflow-hidden">
         <Image
           src="/images/IMG_2073.JPG.jpeg"
@@ -119,24 +110,20 @@ export default function AcademyPage() {
             <p className="text-accent-400 text-xs uppercase tracking-[0.4em] mb-4">
               Arabica Barista Coffee School
             </p>
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-cream-50 leading-[0.95] mb-6">
-              Barista
+            <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-cream-50 leading-[0.9] mb-6">
+              Become a
               <br />
-              Certification
-              <br />
-              <span className="text-accent-400">Program.</span>
+              <span className="text-accent-400">Barista.</span>
             </h1>
-            <p className="text-cream-50/50 text-sm md:text-base max-w-lg leading-relaxed mb-14">
-              We transform enthusiasts into confident, skilled and industry-ready
-              baristas through structured, hands-on training aligned with
-              international specialty coffee standards.
+            <p className="text-cream-50/50 text-sm md:text-base max-w-md leading-relaxed mb-14">
+              Structured, hands-on training aligned with international specialty
+              coffee standards. From zero to certified.
             </p>
           </AnimatedSection>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
-            {stats.map((stat, idx) => (
-              <AnimatedSection key={stat.label} delay={0.3 + idx * 0.05} direction="up" className="h-full">
+          <StaggerContainer className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5" staggerDelay={0.08} delayChildren={0.3}>
+            {stats.map((stat) => (
+              <StaggerItem key={stat.label}>
                 <div className="bg-white/10 backdrop-blur-sm border border-cream-50/10 p-4 sm:p-5 h-full">
                   <stat.icon className="w-5 h-5 text-accent-400 mb-3" />
                   <p className="text-cream-50 font-heading text-xl sm:text-2xl mb-1">
@@ -146,43 +133,53 @@ export default function AcademyPage() {
                     {stat.label}
                   </p>
                 </div>
-              </AnimatedSection>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      {/* About the Program */}
+      {/* Big bold statement */}
+      <section className="bg-accent-500 py-10 md:py-14">
+        <div className="max-w-5xl mx-auto px-6 md:px-8">
+          <AnimatedSection delay={0.1} direction="up">
+            <p className="font-heading text-2xl sm:text-3xl md:text-4xl text-white text-center leading-snug">
+              We don&apos;t teach coffee in a classroom.
+              <br />
+              <span className="text-white/60">We teach it where it&apos;s made.</span>
+            </p>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* About + Image */}
       <section className="bg-cream-50 py-20 md:py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <AnimatedSection delay={0.1} direction="up">
               <div className="max-w-xl">
                 <p className="text-accent-500 text-xs uppercase tracking-[0.3em] mb-4">
-                  About the Program
+                  The Program
                 </p>
                 <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-coffee-900 leading-tight mb-6">
-                  Not just another course.
+                  Not just another
+                  <br />
+                  coffee course.
                 </h2>
-                <p className="text-coffee-600 text-base leading-relaxed mb-6">
-                  Our Barista Certification Program is designed using structured
-                  specialty coffee principles inspired by the Specialty Coffee
-                  Association framework, combining deep coffee knowledge with
-                  intensive hands-on practice.
+                <p className="text-coffee-600 text-base leading-relaxed mb-8">
+                  Our Barista Certification Program combines deep specialty coffee
+                  knowledge with intensive hands-on practice. Designed around the
+                  Specialty Coffee Association framework — you learn the real thing.
                 </p>
-                <p className="text-coffee-500 text-sm leading-relaxed mb-8">
-                  Our program follows globally recognized specialty coffee
-                  standards and is aligned with the curriculum frameworks of:
-                </p>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {[
-                    "Specialty Coffee Association (SCA)",
-                    "Asian Specialty Coffee Association (ASCA)",
-                    "Authorized SCA Trainer (AST)",
+                    { org: "SCA", full: "Specialty Coffee Association" },
+                    { org: "ASCA", full: "Asian Specialty Coffee Association" },
+                    { org: "AST", full: "Authorized SCA Trainer" },
                   ].map((item) => (
-                    <div key={item} className="flex items-center gap-3">
-                      <Award className="w-4 h-4 text-accent-500 shrink-0" />
-                      <span className="text-coffee-700 text-sm font-medium">{item}</span>
+                    <div key={item.org} className="flex items-center gap-4">
+                      <span className="font-heading text-lg text-accent-500 w-14 shrink-0">{item.org}</span>
+                      <span className="text-coffee-600 text-sm">{item.full}</span>
                     </div>
                   ))}
                 </div>
@@ -204,64 +201,69 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      {/* Who Is This For + Duration */}
-      <section className="border-y-4 border-coffee-900 bg-cream-50">
+      {/* Who is this for — punchy cards */}
+      <section className="bg-coffee-900 py-20 md:py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
-          <div className="grid md:grid-cols-2">
-            {/* Ideal For */}
-            <div className="py-12 md:py-16 md:pr-12 md:border-r md:border-coffee-900/10">
-              <AnimatedSection delay={0.1} direction="up">
-                <p className="text-accent-500 text-xs uppercase tracking-[0.3em] mb-4">
-                  Ideal For
-                </p>
-                <h3 className="font-heading text-2xl md:text-3xl text-coffee-900 leading-tight mb-6">
-                  This course is for you if you&apos;re&hellip;
-                </h3>
-                <ul className="space-y-4">
-                  {idealFor.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-coffee-700">
-                      <ArrowRight className="w-4 h-4 text-accent-500 mt-0.5 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </AnimatedSection>
-            </div>
+          <AnimatedSection delay={0.1} direction="up">
+            <p className="text-accent-400 text-xs uppercase tracking-[0.3em] mb-4">
+              Is This For You?
+            </p>
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-cream-50 leading-tight mb-12">
+              Spoiler: yes.
+            </h2>
+          </AnimatedSection>
 
-            {/* Duration */}
-            <div className="py-12 md:py-16 md:pl-12">
-              <AnimatedSection delay={0.2} direction="up">
-                <p className="text-accent-500 text-xs uppercase tracking-[0.3em] mb-4">
-                  Course Duration
-                </p>
-                <h3 className="font-heading text-2xl md:text-3xl text-coffee-900 leading-tight mb-6">
-                  Two paths, one goal.
-                </h3>
-                <div className="space-y-6">
-                  <div className="border-2 border-coffee-900 p-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Clock className="w-5 h-5 text-accent-500" />
-                      <h4 className="font-heading text-lg text-coffee-900">1 Week Intensive</h4>
-                    </div>
-                    <p className="text-coffee-500 text-sm">Fast-track certification for focused learners.</p>
-                  </div>
-                  <div className="border-2 border-coffee-900 p-6 shadow-[4px_4px_0_0_theme(colors.coffee.900)]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Clock className="w-5 h-5 text-accent-500" />
-                      <h4 className="font-heading text-lg text-coffee-900">1 Month Advanced</h4>
-                    </div>
-                    <p className="text-coffee-500 text-sm">Deep professional program with extended practice.</p>
-                  </div>
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4" staggerDelay={0.08}>
+            {idealFor.map((item) => (
+              <StaggerItem key={item.label}>
+                <div className="bg-white/5 border border-cream-50/10 p-6 h-full">
+                  <p className="font-heading text-lg text-cream-50 mb-2">{item.label}</p>
+                  <p className="text-cream-50/40 text-sm">{item.desc}</p>
                 </div>
-                <div className="mt-6 flex items-center gap-3 bg-cream-100 p-4">
-                  <Wrench className="w-5 h-5 text-coffee-400 shrink-0" />
-                  <p className="text-coffee-600 text-sm">
-                    <span className="font-bold">80% Practical</span> | 20% Theory — trained in a real café-simulated environment.
-                  </p>
-                </div>
-              </AnimatedSection>
-            </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Duration options — visual split */}
+      <section className="bg-cream-50">
+        <div className="grid md:grid-cols-2">
+          <div className="bg-coffee-900 p-10 md:p-16 flex flex-col justify-center">
+            <AnimatedSection delay={0.1} direction="left">
+              <div className="flex items-center gap-3 mb-4">
+                <Zap className="w-6 h-6 text-accent-400" />
+                <p className="text-accent-400 text-xs uppercase tracking-[0.3em]">Fast Track</p>
+              </div>
+              <h3 className="font-heading text-4xl md:text-5xl text-cream-50 leading-[0.9] mb-4">
+                1 Week<br />Intensive.
+              </h3>
+              <p className="text-cream-50/50 text-sm leading-relaxed">
+                Concentrated certification program. Full days, real machines,
+                instant immersion. For those who learn by diving in.
+              </p>
+            </AnimatedSection>
           </div>
+          <div className="bg-cream-100 p-10 md:p-16 flex flex-col justify-center">
+            <AnimatedSection delay={0.2} direction="right">
+              <div className="flex items-center gap-3 mb-4">
+                <Flame className="w-6 h-6 text-accent-500" />
+                <p className="text-accent-500 text-xs uppercase tracking-[0.3em]">Deep Dive</p>
+              </div>
+              <h3 className="font-heading text-4xl md:text-5xl text-coffee-900 leading-[0.9] mb-4">
+                1 Month<br />Advanced.
+              </h3>
+              <p className="text-coffee-500 text-sm leading-relaxed">
+                Extended professional program. More practice, more depth,
+                more confidence. For those who want mastery.
+              </p>
+            </AnimatedSection>
+          </div>
+        </div>
+        <div className="bg-accent-500 py-4">
+          <p className="text-center text-white text-sm font-bold uppercase tracking-wider">
+            80% Practical &mdash; 20% Theory &mdash; Real Café Environment
+          </p>
         </div>
       </section>
 
@@ -285,35 +287,38 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      {/* Full Curriculum */}
+      {/* Curriculum — visual modules */}
       <section className="bg-cream-50 py-20 md:py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
           <AnimatedSection delay={0.1} direction="up">
             <div className="max-w-2xl mb-16">
               <p className="text-accent-500 text-xs uppercase tracking-[0.3em] mb-4">
-                What You Will Learn
+                The Curriculum
               </p>
               <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-coffee-900 leading-tight">
-                Full Curriculum.
+                Everything you&apos;ll master.
               </h2>
             </div>
           </AnimatedSection>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {curriculum.map((module, idx) => (
-              <AnimatedSection key={module.title} delay={0.1 + idx * 0.05} direction="up">
-                <div className="border-2 border-coffee-900 p-6 md:p-8">
-                  <div className="flex items-start gap-4 mb-5">
-                    <span className="font-heading text-3xl text-coffee-200 shrink-0">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-heading text-lg md:text-xl text-coffee-900 uppercase tracking-wider pt-1">
-                      {module.title}
-                    </h3>
+              <AnimatedSection key={module.title} delay={0.05 + idx * 0.05} direction="up">
+                <div className="border-2 border-coffee-900 p-6 md:p-8 hover:shadow-[4px_4px_0_0_theme(colors.coffee.900)] transition-shadow">
+                  <div className="flex items-center gap-4 mb-5">
+                    <span className="text-3xl">{module.emoji}</span>
+                    <div>
+                      <span className="text-coffee-300 text-xs font-bold uppercase tracking-wider">
+                        Module {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-heading text-lg md:text-xl text-coffee-900 uppercase tracking-wider">
+                        {module.title}
+                      </h3>
+                    </div>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-x-8 gap-y-3 pl-12">
+                  <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2 pl-14">
                     {module.topics.map((topic) => (
-                      <div key={topic} className="flex items-start gap-2 text-sm text-coffee-700">
+                      <div key={topic} className="flex items-start gap-2 text-sm text-coffee-600">
                         <ArrowRight className="w-3.5 h-3.5 text-accent-500 mt-0.5 shrink-0" />
                         {topic}
                       </div>
@@ -344,33 +349,34 @@ export default function AcademyPage() {
 
             <AnimatedSection delay={0.2} direction="up">
               <p className="text-accent-400 text-xs uppercase tracking-[0.3em] mb-4">
-                Certification
+                What You Get
               </p>
               <h2 className="font-heading text-3xl md:text-4xl text-cream-50 leading-tight mb-6">
-                Arabica Barista<br />
-                Certification.
+                The Arabica<br />
+                Barista<br />
+                <span className="text-accent-400">Certification.</span>
               </h2>
-              <p className="text-cream-50/60 text-sm leading-relaxed mb-6">
-                Upon successful completion, students receive the Arabica Barista
-                Certification, reflecting advanced practical competency and
-                specialty coffee knowledge aligned with SCA, ASCA & AST standards.
+              <p className="text-cream-50/60 text-base leading-relaxed mb-6">
+                Advanced practical competency. Specialty coffee knowledge.
+                Aligned with SCA, ASCA & AST standards. Recognized by cafés
+                and employers worldwide.
               </p>
-              <p className="text-cream-50/40 text-sm leading-relaxed">
-                Your certification is recognized by cafés and employers worldwide —
-                opening doors to careers across Nepal and abroad.
+              <p className="text-cream-50/30 text-sm leading-relaxed italic">
+                &ldquo;This isn&apos;t a certificate you hang on the wall.
+                It&apos;s one you prove at the bar.&rdquo;
               </p>
             </AnimatedSection>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Arabica */}
+      {/* Why Choose Arabica — stagger grid */}
       <section className="bg-cream-50 py-20 md:py-28">
         <div className="max-w-6xl mx-auto px-6 md:px-8">
           <AnimatedSection delay={0.1} direction="up">
             <div className="max-w-2xl mb-12">
               <p className="text-accent-500 text-xs uppercase tracking-[0.3em] mb-4">
-                Why Choose Arabica
+                Why Arabica
               </p>
               <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-coffee-900 leading-tight">
                 Built different.
@@ -378,33 +384,33 @@ export default function AcademyPage() {
             </div>
           </AnimatedSection>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {whyUs.map((item, idx) => (
-              <AnimatedSection key={item.title} delay={0.1 + idx * 0.05} direction="up">
-                <div className="border-2 border-coffee-900 p-8 shadow-[4px_4px_0_0_theme(colors.coffee.900)] h-full">
-                  <div className="flex items-center gap-3 mb-4">
+          <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.06}>
+            {whyUs.map((item) => (
+              <StaggerItem key={item.title}>
+                <div className="border-2 border-coffee-900 p-6 shadow-[4px_4px_0_0_theme(colors.coffee.900)] h-full">
+                  <div className="flex items-center gap-3 mb-3">
                     <CheckCircle className="w-5 h-5 text-accent-500 shrink-0" />
-                    <h3 className="font-heading text-lg text-coffee-900 uppercase tracking-wider">
+                    <h3 className="font-heading text-base text-coffee-900 uppercase tracking-wider">
                       {item.title}
                     </h3>
                   </div>
                   <p className="text-coffee-600 text-sm leading-relaxed">{item.desc}</p>
                 </div>
-              </AnimatedSection>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How it works — 3 steps */}
       <section className="border-y-4 border-coffee-900 bg-cream-50">
         <div className="max-w-5xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid grid-cols-1 md:grid-cols-3">
               {[
-                { step: "01", title: "Call Us", desc: "Learn about upcoming sessions, duration options, and availability." },
-                { step: "02", title: "Enroll", desc: "Reserve your spot. We'll schedule your session and prep materials." },
-                { step: "03", title: "Certify", desc: "Complete training, earn your Arabica Barista Certification." },
+                { step: "01", title: "Call Us", desc: "Ask about sessions, pick your duration, check availability." },
+                { step: "02", title: "Enroll", desc: "Lock in your spot. We handle the rest." },
+                { step: "03", title: "Get Certified", desc: "Train hard, earn your Arabica Barista Certification." },
               ].map((item, idx) => (
                 <div
                   key={item.step}
@@ -432,11 +438,10 @@ export default function AcademyPage() {
           <AnimatedSection delay={0.1} direction="up">
             <BookOpen className="w-10 h-10 text-accent-500 mx-auto mb-6" />
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-coffee-900 leading-tight mb-6">
-              Ready to start?
+              Your move.
             </h2>
             <p className="text-coffee-600 text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Whether you&apos;re a complete beginner or planning to open your
-              own café — give us a call and we&apos;ll get you started.
+              Complete beginner or future café owner — it starts with one call.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" asChild>
